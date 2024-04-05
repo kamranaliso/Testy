@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello</title>
+    <script></script>
+  </head>
+  <body
+    style="
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    "
+  >
+    <div
+      style="
+        width: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <h3 style="display: flex; flex-grow: 1">Dangerous Calculator</h3>
+      <input
+        style="padding: 10px; border: 1px solid #ededed"
+        id="investment"
+        type="text"
+        ,
+        placeholder="Investment"
+      />
+      <input
+        style="padding: 10px; border: 1px solid #ededed"
+        id="perc"
+        type="text"
+        ,
+        placeholder="Daily Profit Percentage"
+      />
+      <input
+        style="padding: 10px; border: 1px solid #ededed"
+        id="days"
+        type="text"
+        ,
+        placeholder="Days"
+      />
+      <button
+        style="padding: 10px; border: 1px solid #ededed"
+        onclick="calculate()"
+      >
+        Calculate
+      </button>
+    </div>
+    <div
+      style="
+        width: 1000px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: cadetblue;
+        color: white;
+        border-radius: 5px;
+        padding: 20px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      "
+    >
+      <span>Final Day Returns</span>
+      <div>
+        <span style="margin-left: 20px" id="finalDay">0</span>
+        <span id="lastDayProfit">0</span>
+      </div>
+    </div>
+    <span
+      id="result"
+      style="
+        width: 1000px;
+        display: flex;
+        flex-direction: column;
+        background-color: antiquewhite;
+        border-radius: 5px;
+        color: #808080;
+        padding: 20px;
+        box-sizing: border-box;
+      "
+    >
+      Please enter the above Fields.
+    </span>
+
+    <script>
+      let lastDayProfit = 0;
+      function calc(amount, perc) {
+        let profit = amount * perc;
+        let newAmount = amount + profit;
+        lastDayProfit = profit;
+        return newAmount;
+      }
+
+      function calculate() {
+        let investment = parseFloat(
+          document.getElementById("investment").value
+        );
+        let perc = parseFloat(document.getElementById("perc").value) / 100;
+        let days = parseFloat(document.getElementById("days").value);
+        let text = "";
+        for (let i = 1; i < days + 1; i++) {
+          text +=
+            "Day " +
+            i +
+            ":" +
+            " Investment: " +
+            investment.toFixed(2) +
+            ", New Investment: " +
+            calc(investment, perc).toFixed(2) +
+            "<br />" +
+            "<br />";
+          investment = calc(investment, perc);
+        }
+
+        document.getElementById("finalDay").innerHTML =
+          " Day " + days + ": " + investment.toFixed(2) + ", ";
+
+        document.getElementById("lastDayProfit").innerHTML =
+          "Day Profit: " + lastDayProfit.toFixed(2);
+        document.getElementById("result").innerHTML = text;
+      }
+    </script>
+  </body>
+</html>
